@@ -1,0 +1,1 @@
+# shopware-8mzEmotionComponentCategoryTeaserHover
