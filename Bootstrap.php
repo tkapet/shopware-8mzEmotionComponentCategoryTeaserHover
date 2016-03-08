@@ -24,7 +24,7 @@ class Shopware_Plugins_Backend_8mzEmotionComponentCategoryTeaserHover_Bootstrap 
 
     public function getVersion()
     {
-        return "1.0.1";
+        return "1.0.3";
     }
 
     public function install()
@@ -111,6 +111,20 @@ class Shopware_Plugins_Backend_8mzEmotionComponentCategoryTeaserHover_Bootstrap 
 
     public function update($existingVersion)
     {
+      switch($existingVersion){
+        case '1.0.0':
+        case '1.0.1':
+        case '1.0.2':
+
+          $this->subscribeEvent(
+              'Enlight_Controller_Action_PostDispatchSecure_Widgets_Campaign',
+              'extendsEmotionTemplates'
+          );
+
+          break;
+        default:
+          return false;
+      }
       return true;
     }
 
