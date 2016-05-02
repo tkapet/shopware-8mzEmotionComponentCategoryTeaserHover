@@ -22,7 +22,15 @@
 					{$url = "{url controller=cat action=index sCategory=$Data.category_selection}"}
 				{/if}
 
-        {$title = $Data.categoryName}
+        {if $Data.link_address}
+          {$url = $Data.link_address}
+        {/if}
+
+        {if $Data.link_text}
+          {$title = $Data.link_text}
+        {else}
+          {$title = $Data.categoryName}
+        {/if}
 
 				{strip}
 					<style type="text/css">

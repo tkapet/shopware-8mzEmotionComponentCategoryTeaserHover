@@ -24,7 +24,7 @@ class Shopware_Plugins_Backend_8mzEmotionComponentCategoryTeaserHover_Bootstrap 
 
     public function getVersion()
     {
-        return "1.1.1";
+        return "1.2.0";
     }
 
     public function install()
@@ -56,7 +56,8 @@ class Shopware_Plugins_Backend_8mzEmotionComponentCategoryTeaserHover_Bootstrap 
         $component->createField(array(
             'fieldLabel' => 'Kategorie',
             'name' => 'category_selection',
-            'xtype' => 'emotion-components-fields-category-selection'
+            'xtype' => 'emotion-components-fields-category-selection',
+            'allowBlank' => true
         ));
 
         $component->createField(array(
@@ -96,6 +97,20 @@ class Shopware_Plugins_Backend_8mzEmotionComponentCategoryTeaserHover_Bootstrap 
             'name' => 'blog_category',
             'xtype' => 'checkbox',
             'allowBlank' => true
+        ));
+
+        $component->createField(array(
+          'fieldLabel' => 'Link Text',
+          'name' => 'link_text',
+          'xtype' => 'textfield',
+          'allowBlank' => true
+        ));
+
+        $component->createField(array(
+          'fieldLabel' => 'Link Adresse',
+          'name' => 'link_address',
+          'xtype' => 'textfield',
+          'allowBlank' => true
         ));
 
         $this->subscribeEvent(
@@ -145,7 +160,33 @@ class Shopware_Plugins_Backend_8mzEmotionComponentCategoryTeaserHover_Bootstrap 
               'xtype' => 'checkbox',
               'allowBlank' => true
           ));
+        case '1.1.0':
+        case '1.1.1':
+          $component = $this->createEmotionComponent(
+              array(
+                  'name' => 'Kategorie-Teaser (Mouseover)',
+                  'template' => 'component_category_teaser_hover_effect',
+                  'xtype' => 'emotion-components-category-teaser-hover-effect',
+                  'description' => 'Das Kategorie Teaser Widget in den Einkaufswelten mit zusätzlich coolen Hover Effekten.',
+                  'convertFunction' => 'getCategoryTeaser'
+              )
+          );
 
+          $component->createField(array(
+            'fieldLabel' => 'Link Text',
+            'name' => 'link_text',
+            'xtype' => 'textfield',
+            'allowBlank' => true
+          ));
+
+          $component->createField(array(
+            'fieldLabel' => 'Link Adresse',
+            'name' => 'link_address',
+            'xtype' => 'textfield',
+            'allowBlank' => true
+          ));
+
+          Shopware()->Db()->query("UPDATE s_library_component_field SET allow_blank=1 WHERE name='category_selection' AND componentID=?", array($component->getId()));
           break;
         default:
           return false;
