@@ -24,7 +24,7 @@ class Shopware_Plugins_Backend_8mzEmotionComponentCategoryTeaserHover_Bootstrap 
 
     public function getVersion()
     {
-        return "1.0.3";
+        return "1.1.1";
     }
 
     public function install()
@@ -91,6 +91,13 @@ class Shopware_Plugins_Backend_8mzEmotionComponentCategoryTeaserHover_Bootstrap 
             'allowBlank' => true
         ));
 
+        $component->createField(array(
+            'fieldLabel' => 'Blog Kategorie',
+            'name' => 'blog_category',
+            'xtype' => 'checkbox',
+            'allowBlank' => true
+        ));
+
         $this->subscribeEvent(
             'Theme_Compiler_Collect_Plugin_Less',
             'onCollectLessFiles'
@@ -120,6 +127,24 @@ class Shopware_Plugins_Backend_8mzEmotionComponentCategoryTeaserHover_Bootstrap 
               'Enlight_Controller_Action_PostDispatchSecure_Widgets_Campaign',
               'extendsEmotionTemplates'
           );
+
+        case '1.0.3':
+          $component = $this->createEmotionComponent(
+              array(
+                  'name' => 'Kategorie-Teaser (Mouseover)',
+                  'template' => 'component_category_teaser_hover_effect',
+                  'xtype' => 'emotion-components-category-teaser-hover-effect',
+                  'description' => 'Das Kategorie Teaser Widget in den Einkaufswelten mit zusätzlich coolen Hover Effekten.',
+                  'convertFunction' => 'getCategoryTeaser'
+              )
+          );
+
+          $component->createField(array(
+              'fieldLabel' => 'Blog Kategorie',
+              'name' => 'blog_category',
+              'xtype' => 'checkbox',
+              'allowBlank' => true
+          ));
 
           break;
         default:
