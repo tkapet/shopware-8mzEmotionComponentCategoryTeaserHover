@@ -24,7 +24,7 @@ class Shopware_Plugins_Backend_8mzEmotionComponentCategoryTeaserHover_Bootstrap 
 
     public function getVersion()
     {
-        return "1.2.0";
+        return '1.2.2';
     }
 
     public function install()
@@ -188,6 +188,12 @@ class Shopware_Plugins_Backend_8mzEmotionComponentCategoryTeaserHover_Bootstrap 
 
           Shopware()->Db()->query("UPDATE s_library_component_field SET allow_blank=1 WHERE name='category_selection' AND componentID=?", array($component->getId()));
           break;
+        case '1.2.1':
+            $stmt = Shopware()->Db()->query("SELECT id FROM s_library_component WHERE `x_type` = 'emotion-components-category-teaser-hover-effect'");
+            $id = $stmt->fetch()['id'];
+            Shopware()->Db()->query("UPDATE s_library_component_field SET allow_blank=1 WHERE name='description_text' AND componentID=?", array($id));
+
+            break;
         default:
           return false;
       }
